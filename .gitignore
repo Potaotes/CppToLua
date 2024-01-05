@@ -1,0 +1,10 @@
+.vs
+.vscode
+x64
+Lua/x64
+Luac/x64
+LuaDll/x64
+LuaLib/x64
+LuaMain/x64
+luasocket/x64
+mime/x64

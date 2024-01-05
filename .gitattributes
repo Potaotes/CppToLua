@@ -1,0 +1,10 @@
+lua-5.4.6 filter=lfs diff=lfs merge=lfs -text
+LuaDll filter=lfs diff=lfs merge=lfs -text
+LuaLib filter=lfs diff=lfs merge=lfs -text
+Luac filter=lfs diff=lfs merge=lfs -text
+luaScripts filter=lfs diff=lfs merge=lfs -text
+x64 filter=lfs diff=lfs merge=lfs -text
+CppToLua.sln filter=lfs diff=lfs merge=lfs -text
+Lua filter=lfs diff=lfs merge=lfs -text
+LuaMain filter=lfs diff=lfs merge=lfs -text
+*.sln filter=lfs diff=lfs merge=lfs -text
