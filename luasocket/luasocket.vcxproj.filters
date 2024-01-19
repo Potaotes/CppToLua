@@ -39,9 +39,6 @@
     <ClCompile Include="..\luasocket-3.1.0\src\select.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\luasocket-3.1.0\src\serial.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\luasocket-3.1.0\src\tcp.c">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -51,79 +48,11 @@
     <ClCompile Include="..\luasocket-3.1.0\src\udp.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\luasocket-3.1.0\src\unix.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\luasocket-3.1.0\src\unixdgram.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\luasocket-3.1.0\src\unixstream.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\luasocket-3.1.0\src\usocket.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\luasocket-3.1.0\src\wsocket.c">
       <Filter>源文件</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\luasocket-3.1.0\src\auxiliar.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\buffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\except.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\inet.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\io.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\linuxHead.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\luasocket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\options.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\pierror.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\select.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\socket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\tcp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\timeout.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\udp.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\unix.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\unixdgram.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\unixstream.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\usocket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\luasocket-3.1.0\src\wsocket.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClCompile Include="..\luasocket-3.1.0\src\compat.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

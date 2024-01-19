@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,40 +23,40 @@ class LuaAPITest
 {
 public:
 	/// <summary>
-	/// Ò»°ã²âÊÔÓÃ
+	/// ä¸€èˆ¬æµ‹è¯•ç”¨
 	/// </summary>
 	static void TestMain();
 
 	/// <summary>
-	/// LuaÀà¼Ì³Ğ²âÊÔ
+	/// Luaç±»ç»§æ‰¿æµ‹è¯•
 	/// </summary>
 	static void TestClass();
 
 private:
 	/// <summary>
-	/// ¼Ó·¨ ¼ÓÁ½¸öÊı
+	/// åŠ æ³• åŠ ä¸¤ä¸ªæ•°
 	/// </summary>
-	/// <param name="L">LuaĞéÄâ»úÊµÀı</param>
-	/// <returns>·µ»Ø½á¹û¸öÊı</returns>
+	/// <param name="L">Luaè™šæ‹Ÿæœºå®ä¾‹</param>
+	/// <returns>è¿”å›ç»“æœä¸ªæ•°</returns>
 	static int addFunc(lua_State* L);
 
 	/// <summary>
-	/// ´òÓ¡ĞÅÏ¢ÖÁ¿ØÖÆÌ¨(±©Â¶¸øLuaÊ¹ÓÃ)
+	/// æ‰“å°ä¿¡æ¯è‡³æ§åˆ¶å°(æš´éœ²ç»™Luaä½¿ç”¨)
 	/// </summary>
-	/// <param name="L">LuaĞéÄâ»úÊµÀı</param>
-	/// <returns>·µ»Ø½á¹û¸öÊı</returns>
+	/// <param name="L">Luaè™šæ‹Ÿæœºå®ä¾‹</param>
+	/// <returns>è¿”å›ç»“æœä¸ªæ•°</returns>
 	static int PrintToConsole(lua_State* L);
 
 	/// <summary>
-	/// Éú³ÉLuaÊ¹ÓÃclassÈ«¾Öº¯Êı
+	/// ç”ŸæˆLuaä½¿ç”¨classå…¨å±€å‡½æ•°
 	/// </summary>
-	/// <param name="L">LuaĞéÄâ»úÊµÀı</param>
+	/// <param name="L">Luaè™šæ‹Ÿæœºå®ä¾‹</param>
 	static void GenLuaClass(lua_State* L);
 
 	/// <summary>
-	/// ×¢²áLuasocket
+	/// æ³¨å†ŒLuasocket
 	/// </summary>
-	/// <param name="L">LuaĞéÄâ»úÊµÀı</param>
+	/// <param name="L">Luaè™šæ‹Ÿæœºå®ä¾‹</param>
 	static void RegisterLuasocket(lua_State* L);
 
 private:

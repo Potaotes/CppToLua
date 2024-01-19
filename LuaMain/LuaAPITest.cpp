@@ -1,4 +1,15 @@
-#include "LuaAPITest.h"
+ï»¿#include "LuaAPITest.h"
+
+// luaL_dofile(L, "../luaScripts/luascoket/ltn12.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/mime.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/ftp.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/headers.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/http.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/mbox.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/smtp.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/tp.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/url.lua");
+// luaL_dofile(L, "../luaScripts/luascoket/socket.lua");
 
 luaL_Reg LuaAPITest::luax_exts[] = {
 	{"socket.core", luaopen_socket_core},
@@ -7,49 +18,58 @@ luaL_Reg LuaAPITest::luax_exts[] = {
 };
 
 luaL_Reg LuaAPITest::luasocket_scripts[] = {
-	{},
+	{ "ltn12", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/ltn12.lua"); return 1; } },
+	{ "mime", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/mime.lua"); return 1; } },
+	{ "socket.ftp", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/ftp.lua"); return 1; } },
+	{ "socket.headers", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/headers.lua"); return 1; } },
+	{ "socket.http", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/http.lua"); return 1; } },
+	{ "socket.mbox", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/mbox.lua"); return 1; } },
+	{ "socket.smtp", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/smtp.lua"); return 1; } },
+	{ "socket.tp", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/tp.lua"); return 1; } },
+	{ "socket.url", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/url.lua"); return 1; } },
+	{ "socket", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/socket.lua"); return 1; } },
 };
 
 void LuaAPITest::TestMain()
 {
-	lua_State* L = luaL_newstate(); // ´´½¨Lua×´Ì¬(ĞéÄâ»úÊµÀı)
-	luaL_openlibs(L);   // ³õÊ¼»¯LuaµÄ×´Ì¬ºÍÈ«¾Ö»·¾³ºÍ¿â
+	lua_State* L = luaL_newstate(); // åˆ›å»ºLuaçŠ¶æ€(è™šæ‹Ÿæœºå®ä¾‹)
+	luaL_openlibs(L);   // åˆå§‹åŒ–Luaçš„çŠ¶æ€å’Œå…¨å±€ç¯å¢ƒå’Œåº“
 
-	// ³õÊ¼»¯Õ»¿Õ
+	// åˆå§‹åŒ–æ ˆç©º
 	std::cout << "Init Stack Element Nums: " << lua_gettop(L) << std::endl;
 
-	lua_pushnumber(L, 10086);   // ½«Ö¸¶¨numberÀàĞÍÊı¾İÈëÕ»
-	lua_setglobal(L, "nGlobalVal"); // ½«Õ»¶¥Êı¾İÉèÖÃÎªÈ«¾Ö±äÁ¿
+	lua_pushnumber(L, 10086);   // å°†æŒ‡å®šnumberç±»å‹æ•°æ®å…¥æ ˆ
+	lua_setglobal(L, "nGlobalVal"); // å°†æ ˆé¡¶æ•°æ®è®¾ç½®ä¸ºå…¨å±€å˜é‡
 
-	// ´ËÊ±Õ»ÄÚÎª¿Õ ÉèÖÃÈ«¾Ö±äÁ¿ºó È«¾Ö±äÁ¿´æ´¢ÖÁ_G±íÖĞ ²»´æÔÚÓÚÕ»ÄÚ
+	// æ­¤æ—¶æ ˆå†…ä¸ºç©º è®¾ç½®å…¨å±€å˜é‡å å…¨å±€å˜é‡å­˜å‚¨è‡³_Gè¡¨ä¸­ ä¸å­˜åœ¨äºæ ˆå†…
 	std::cout << "Set Global Stack Element Nums: " << lua_gettop(L) << std::endl;
 
-	lua_newtable(L);    // ÉùÃ÷Ò»¸ötableÀàĞÍ±äÁ¿¼ÓÈëÕ»¶¥ ¸ÃÊı¾İ½á¹¹»áÕ¼ÓÃÒ»¸öÎ»ÖÃ
+	lua_newtable(L);    // å£°æ˜ä¸€ä¸ªtableç±»å‹å˜é‡åŠ å…¥æ ˆé¡¶ è¯¥æ•°æ®ç»“æ„ä¼šå ç”¨ä¸€ä¸ªä½ç½®
 	lua_pushstring(L, "name");
-	lua_pushstring(L, "zjx");   // ÒÀ´Î½«keyºÍvalueÑ¹ÈëÕ»
-	lua_settable(L, -3);        // ½«ÉÏÊö¼üÖµÉèÖÃ½øtable
+	lua_pushstring(L, "zjx");   // ä¾æ¬¡å°†keyå’Œvalueå‹å…¥æ ˆ
+	lua_settable(L, -3);        // å°†ä¸Šè¿°é”®å€¼è®¾ç½®è¿›table
 
-	// ´ËÊ±Õ»ÄÚ½öÓĞÒ»¸ötableÊı¾İ½á¹¹ tableµÄÎ»ÖÃÎª1(»ò-1)
+	// æ­¤æ—¶æ ˆå†…ä»…æœ‰ä¸€ä¸ªtableæ•°æ®ç»“æ„ tableçš„ä½ç½®ä¸º1(æˆ–-1)
 	std::cout << "Set Table Stack Element Nums: " << lua_gettop(L) << std::endl;
 
-	lua_pushstring(L, "name");  // Òª»ñÈ¡¼üÖµĞèÒªÏÈ½«keyÑ¹Õ»
-	lua_gettable(L, 1); // ´ËÊ±Õ»ÄÚ·¢Éú±ä»¯ Õ»¶¥ÎªKey ¸Ã½Ó¿Úµ÷ÓÃÍêºó»á½«»ñÈ¡µÄÖµÑ¹ÈëÕ»ÄÚ
-	std::string strName = lua_tostring(L, -1);  // ´ËÊ±½«Õ»¶¥Êı¾İ¶Á³ö¼´ÎªÄÚÈİ
+	lua_pushstring(L, "name");  // è¦è·å–é”®å€¼éœ€è¦å…ˆå°†keyå‹æ ˆ
+	lua_gettable(L, 1); // æ­¤æ—¶æ ˆå†…å‘ç”Ÿå˜åŒ– æ ˆé¡¶ä¸ºKey è¯¥æ¥å£è°ƒç”¨å®Œåä¼šå°†è·å–çš„å€¼å‹å…¥æ ˆå†…
+	std::string strName = lua_tostring(L, -1);  // æ­¤æ—¶å°†æ ˆé¡¶æ•°æ®è¯»å‡ºå³ä¸ºå†…å®¹
 	std::cout << strName << std::endl;
 
-	// ´ËÊ±Õ»ÄÚÓĞÁ½¸öÔªËØ Õ»µ×µÄtable ºÍ2Î»ÖÃµÄ»ñÈ¡µÄÖµ
+	// æ­¤æ—¶æ ˆå†…æœ‰ä¸¤ä¸ªå…ƒç´  æ ˆåº•çš„table å’Œ2ä½ç½®çš„è·å–çš„å€¼
 	std::cout << "Get After Stack Element Nums: " << lua_gettop(L) << std::endl;
 
-	// ½«º¯ÊıÉèÖÃÎªÈ«¾Öº¯Êı¸øLuaµ÷ÓÃ
+	// å°†å‡½æ•°è®¾ç½®ä¸ºå…¨å±€å‡½æ•°ç»™Luaè°ƒç”¨
 	lua_pushcfunction(L, addFunc);
 	lua_setglobal(L, "CFunction");
 
-	// ×¢²á´òÓ¡º¯Êı
+	// æ³¨å†Œæ‰“å°å‡½æ•°
 	//lua_pushcfunction(L, PrintToConsole);
 	//lua_setglobal(L, "PrintToC");
 	lua_register(L, "PrintToC", PrintToConsole);
 
-	// luaL_loadfileÖ»¼ÓÔØ½Å±¾ ²»Ö´ĞĞ
+	// luaL_loadfileåªåŠ è½½è„šæœ¬ ä¸æ‰§è¡Œ
 	//int nLoadResult = luaL_loadfile(L, "main.lua");
 	//if (nLoadResult != LUA_OK)
 	//{
@@ -57,7 +77,7 @@ void LuaAPITest::TestMain()
 	//	std::cout << "Error: " << lua_tostring(L, -1) << std::endl;
 	//}
 
-	// ¼ÓÔØ²¢Ö´ĞĞÄ£¿é Ë÷ÒıÂ·¾¶ÎªcppÍ¬¼¶ ´ËÊ±µÚ¶ş¸ö²ÎÎªÄ£¿éÃû ·ÇÎÄ¼şÃû
+	// åŠ è½½å¹¶æ‰§è¡Œæ¨¡å— ç´¢å¼•è·¯å¾„ä¸ºcppåŒçº§ æ­¤æ—¶ç¬¬äºŒä¸ªå‚ä¸ºæ¨¡å—å éæ–‡ä»¶å
 	//luaL_requiref(L, "main", pInitFun, 0);
 
 
@@ -89,23 +109,25 @@ void LuaAPITest::TestClass()
 	luaL_openlibs(L);
 	luaopen_socket_core(L);
 
-	// ÒÔÏÂÄÚÈİ¾ùÓĞ±¨´í ÔİÎŞ·¨»ñÈ¡¾ø¶ÔÂ·¾¶
-	//std::filesystem::path strPath = std::filesystem::current_path();	// C++17ĞÂ¹¦ÄÜ »ñÈ¡µ±Ç°¾ø¶ÔÂ·¾¶
+	LuaAPITest::RegisterLuasocket(L);
+
+	// ä»¥ä¸‹å†…å®¹å‡æœ‰æŠ¥é”™ æš‚æ— æ³•è·å–ç»å¯¹è·¯å¾„
+	//std::filesystem::path strPath = std::filesystem::current_path();	// C++17æ–°åŠŸèƒ½ è·å–å½“å‰ç»å¯¹è·¯å¾„
 	////std::cout << strPath << std::endl;
-	//const wchar_t* absPathW = strPath.c_str();	// »ñÈ¡µÄ×Ö·ûÎª¿í×Ö·û ĞèÒª×ª»»ÎªÆÕÍ¨×Ö·û²ÅÄÜ¸øLuaÊ¹ÓÃ
-	//// ·½Ê½Ò»: Ê¹ÓÃwcstombs_s(°²È«ĞÔ¼ì²é»áµ¼ÖÂwcstombsÎŞ·¨Ê¹ÓÃ)×ª»» ÎŞ±¨´íµ«ÍË³öÖ÷³ÌĞò±¨´í Ô­ÒòÎ´Öª
-	////std::setlocale(LC_ALL, "");	// ÉèÖÃ±¾µØµØÓòĞÅÏ¢ LC_ALL¾ÍÊÇÈ«²¿Ó°Ïì ·ñÔòÖĞÎÄ×ª»»»áÓĞÎÊÌâ
+	//const wchar_t* absPathW = strPath.c_str();	// è·å–çš„å­—ç¬¦ä¸ºå®½å­—ç¬¦ éœ€è¦è½¬æ¢ä¸ºæ™®é€šå­—ç¬¦æ‰èƒ½ç»™Luaä½¿ç”¨
+	//// æ–¹å¼ä¸€: ä½¿ç”¨wcstombs_s(å®‰å…¨æ€§æ£€æŸ¥ä¼šå¯¼è‡´wcstombsæ— æ³•ä½¿ç”¨)è½¬æ¢ æ— æŠ¥é”™ä½†é€€å‡ºä¸»ç¨‹åºæŠ¥é”™ åŸå› æœªçŸ¥
+	////std::setlocale(LC_ALL, "");	// è®¾ç½®æœ¬åœ°åœ°åŸŸä¿¡æ¯ LC_ALLå°±æ˜¯å…¨éƒ¨å½±å“ å¦åˆ™ä¸­æ–‡è½¬æ¢ä¼šæœ‰é—®é¢˜
 	////size_t nPathLength = wcslen(absPathW) + 1;
 	////char* absPathC = new char(nPathLength);
 	////wcstombs_s(nullptr, absPathC, nPathLength, absPathW, nPathLength);
 	////std::cout << absPathC << std::endl;
 
-	//// ·½Ê½¶ş£ºÊ¹ÓÃATL¿â×ª»» ÓĞ±¨´í Ô­ÒòÎ´Öª
+	//// æ–¹å¼äºŒï¼šä½¿ç”¨ATLåº“è½¬æ¢ æœ‰æŠ¥é”™ åŸå› æœªçŸ¥
 	////const char* cPath = W2A(absPathW);
 
-	//// ·½Ê½Èı£ºÊ¹ÓÃWindows API×ª»» Ö÷³ÌĞòÍË³ö±¨´í
+	//// æ–¹å¼ä¸‰ï¼šä½¿ç”¨Windows APIè½¬æ¢ ä¸»ç¨‹åºé€€å‡ºæŠ¥é”™
 	//char* cPath = new char(wcslen(absPathW));
-	//// CP_ACP´ú±íÊ¹ÓÃµ±Ç°ÏµÍ³´úÂëÒ³
+	//// CP_ACPä»£è¡¨ä½¿ç”¨å½“å‰ç³»ç»Ÿä»£ç é¡µ
 	//int wcLen = WideCharToMultiByte(CP_ACP, 0, absPathW, -1, NULL, 0, 0, NULL);
 	//WideCharToMultiByte(CP_ACP, 0, absPathW, -1, cPath, wcLen, 0, NULL);
 
@@ -113,7 +135,7 @@ void LuaAPITest::TestClass()
 	//delete(cPath);
 
 
-	// Ìí¼ÓË÷ÒıÂ·¾¶¹©¸øLuaÊ¹ÓÃ(ÎŞ·¨»ñÈ¡¾ø¶ÔÂ·¾¶ Ê¹ÓÃLuaÏà¶ÔÂ·¾¶´¦Àí)
+	// æ·»åŠ ç´¢å¼•è·¯å¾„ä¾›ç»™Luaä½¿ç”¨(æ— æ³•è·å–ç»å¯¹è·¯å¾„ ä½¿ç”¨Luaç›¸å¯¹è·¯å¾„å¤„ç†)
 	//lua_pushstring(L, );
 
 	int nClassResult = luaL_dofile(L, "../luaScripts/class.lua");
@@ -145,19 +167,19 @@ void LuaAPITest::TestClass()
 int LuaAPITest::addFunc(lua_State* L)
 {
 	std::cout << "Current Stack Nums: " << lua_gettop(L) << std::endl;
-	// »ñÈ¡´«Èëº¯ÊıµÄÁ½¸öÖµ
+	// è·å–ä¼ å…¥å‡½æ•°çš„ä¸¤ä¸ªå€¼
 	lua_Number nNumA = lua_tonumber(L, -1);
 	lua_Number nNumB = lua_tonumber(L, -2);
 
 	lua_Number nResult = nNumA + nNumB;
 
-	// ½«ÖµÖØĞÂÑ¹Õ»¸øLua»ñÈ¡
+	// å°†å€¼é‡æ–°å‹æ ˆç»™Luaè·å–
 	lua_pushnumber(L, nResult);
 
-	// Ñ¹ÈëÒ»¸ö²âÊÔÖµ
+	// å‹å…¥ä¸€ä¸ªæµ‹è¯•å€¼
 	lua_pushstring(L, "TestString");
 
-	// ĞèÒª·µ»Ø½á¹û¸öÊı
+	// éœ€è¦è¿”å›ç»“æœä¸ªæ•°
 	return 2;
 }
 
@@ -184,19 +206,19 @@ void LuaAPITest::GenLuaClass(lua_State* L)
 		return;
 	}
 
-	// ´«ÈëÁ½¸ö²Î ÀàÃû ¸¸Àà¶ÔÏó»ò¹¹Ôìº¯Êı
+	// ä¼ å…¥ä¸¤ä¸ªå‚ ç±»å çˆ¶ç±»å¯¹è±¡æˆ–æ„é€ å‡½æ•°
 	std::string strClassName = lua_tostring(L, -2);
 	void* pSuperFunc = nullptr;
 	
 
-	// ¸¸Àà
+	// çˆ¶ç±»
 	if (lua_isfunction(L, -1))
 	{
-		// º¯Êı¼Ì³Ğ
+		// å‡½æ•°ç»§æ‰¿
 	}
 	else if (lua_istable(L, -1))
 	{
-		// table¼Ì³Ğ
+		// tableç»§æ‰¿
 
 	}
 	else
@@ -208,22 +230,29 @@ void LuaAPITest::GenLuaClass(lua_State* L)
 
 void LuaAPITest::RegisterLuasocket(lua_State* L)
 {
-	// Ô¤¼ÓÔØ socket.core ºÍ mime.core Ö®ºórequireµÄÊ±ºò»áµ÷ÓÃÕâÀïÖ¸¶¨µÄº¯Êı
+	// é¢„åŠ è½½ socket.core å’Œ mime.core ä¹‹årequireçš„æ—¶å€™ä¼šè°ƒç”¨è¿™é‡ŒæŒ‡å®šçš„å‡½æ•°
 	luaL_Reg* pLib = luax_exts;
-	// »ñÈ¡package.preload×Ö¶Î
+	// è·å–package.preloadå­—æ®µ
 	lua_getglobal(L, "package");	// stack: package
 	lua_getfield(L, -1, "preload");	// stack: package preload
 
 	for (; pLib->func; ++pLib)
 	{
-		// ÉèÖÃÖ´ĞĞº¯Êı¸ø¶ÔÓ¦µÄpreload×Ö¶Î
+		// è®¾ç½®æ‰§è¡Œå‡½æ•°ç»™å¯¹åº”çš„preloadå­—æ®µ
 		lua_pushcfunction(L, pLib->func);	// stack: package preload cbfunc
 		lua_setfield(L, -2, pLib->name);	// stack: package preload
 	}
-	// µ¯³ö package ºÍ preload
-	lua_pop(L, 2);
+	
+	pLib = luasocket_scripts;
+	for (; pLib->func; ++pLib)
+	{
+		// è®¾ç½®æ‰§è¡Œå‡½æ•°ç»™å¯¹åº”çš„preloadå­—æ®µ
+		lua_pushcfunction(L, pLib->func);	// stack: package preload cbfunc
+		lua_setfield(L, -2, pLib->name);	// stack: package preload
+	}
 
-	// Ô¤¼ÓÔØĞèÒªµÄLuaÎÄ¼ş
+	// å¼¹å‡º package å’Œ preload
+	lua_pop(L, 2);
 }
 
 

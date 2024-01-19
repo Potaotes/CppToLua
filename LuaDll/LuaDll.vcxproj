@@ -19,36 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\lua-5.4.6\src\lapi.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lauxlib.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lcode.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lctype.h" />
-    <ClInclude Include="..\lua-5.4.6\src\ldebug.h" />
-    <ClInclude Include="..\lua-5.4.6\src\ldo.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lfunc.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lgc.h" />
-    <ClInclude Include="..\lua-5.4.6\src\ljumptab.h" />
-    <ClInclude Include="..\lua-5.4.6\src\llex.h" />
-    <ClInclude Include="..\lua-5.4.6\src\llimits.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lmem.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lobject.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lopcodes.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lopnames.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lparser.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lprefix.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lstate.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lstring.h" />
-    <ClInclude Include="..\lua-5.4.6\src\ltable.h" />
-    <ClInclude Include="..\lua-5.4.6\src\ltm.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lua.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lua.hpp" />
-    <ClInclude Include="..\lua-5.4.6\src\luaconf.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lualib.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lundump.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lvm.h" />
-    <ClInclude Include="..\lua-5.4.6\src\lzio.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\lua-5.4.6\src\lapi.c" />
     <ClCompile Include="..\lua-5.4.6\src\lauxlib.c" />
     <ClCompile Include="..\lua-5.4.6\src\lbaselib.c" />

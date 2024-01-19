@@ -21,42 +21,17 @@
   <ItemGroup>
     <ClCompile Include="..\luasocket-3.1.0\src\auxiliar.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\buffer.c" />
+    <ClCompile Include="..\luasocket-3.1.0\src\compat.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\except.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\inet.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\io.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\luasocket.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\options.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\select.c" />
-    <ClCompile Include="..\luasocket-3.1.0\src\serial.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\tcp.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\timeout.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\udp.c" />
-    <ClCompile Include="..\luasocket-3.1.0\src\unix.c" />
-    <ClCompile Include="..\luasocket-3.1.0\src\unixdgram.c" />
-    <ClCompile Include="..\luasocket-3.1.0\src\unixstream.c" />
-    <ClCompile Include="..\luasocket-3.1.0\src\usocket.c" />
     <ClCompile Include="..\luasocket-3.1.0\src\wsocket.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\luasocket-3.1.0\src\auxiliar.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\buffer.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\except.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\inet.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\io.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\linuxHead.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\luasocket.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\options.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\pierror.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\select.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\socket.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\tcp.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\timeout.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\udp.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\unix.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\unixdgram.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\unixstream.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\usocket.h" />
-    <ClInclude Include="..\luasocket-3.1.0\src\wsocket.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -80,7 +55,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -159,7 +134,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>..\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>LuaLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>LuaDll.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
