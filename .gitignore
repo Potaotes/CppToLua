@@ -8,3 +8,11 @@ LuaLib/x64
 LuaMain/x64
 luasocket/x64
 mime/x64
+Debug
+Lua/Debug
+Luac/Debug
+LuaDll/Debug
+LuaLib/Debug
+LuaMain/Debug
+luasocket/Debug
+mime/Debug
