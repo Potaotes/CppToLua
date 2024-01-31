@@ -28,6 +28,7 @@ luaL_Reg LuaAPITest::luasocket_scripts[] = {
 	{ "socket.tp", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/tp.lua"); return 1; } },
 	{ "socket.url", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/url.lua"); return 1; } },
 	{ "socket", [](lua_State* L)->int { luaL_dofile(L, "../luaScripts/luascoket/socket.lua"); return 1; } },
+	{ NULL, NULL }
 };
 
 void LuaAPITest::TestMain()
@@ -207,10 +208,9 @@ void LuaAPITest::GenLuaClass(lua_State* L)
 	}
 
 	// 传入两个参 类名 父类对象或构造函数
-	std::string strClassName = lua_tostring(L, -2);
+	std::string strClassName = lua_tostring(L, 1);
 	void* pSuperFunc = nullptr;
 	
-
 	// 父类
 	if (lua_isfunction(L, -1))
 	{
@@ -219,7 +219,6 @@ void LuaAPITest::GenLuaClass(lua_State* L)
 	else if (lua_istable(L, -1))
 	{
 		// table继承
-
 	}
 	else
 	{

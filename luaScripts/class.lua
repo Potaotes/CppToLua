@@ -7,14 +7,14 @@
 ---@field public ctor fun(...) 构造函数
 ---@field public new fun(...):BaseClass 实例化函数
 ---@field public class BaseClass 当前类内的数据
----@field public super BaseClass 父类
+---@field public super BaseClass 基类
 
 ---构建类
----@param strClassName string
----@param unionSuper BaseClass|function|nil
+---@param strClassName string 类名
+---@param unionSuper BaseClass|function|nil 基类 (可为Lua类和函数) 该参数不传则为声明基类
 ---@return BaseClass
 function class(strClassName, unionSuper)
-    -- 继承的对象可以是一个table; 也可以是一个函数, 函数的返回值是C的对象
+    -- 继承的对象可以是一个table; 也可以是一个函数, 函数的返回值一般是C的对象
     unionSuper = unionSuper or {}
     local strSuperType = type(unionSuper);
 
@@ -36,7 +36,7 @@ function class(strClassName, unionSuper)
         cNewClass.__create = funSuper;
         cNewClass.__ctype = 1;
 
-        -- 函数类型父类不一定有ctor函数, 此处初始化一个空的函数
+        -- 函数类型基类不一定有ctor函数, 此处初始化一个空的函数
         cNewClass.ctor = function(...) end;
 
         -- 创建new函数
@@ -61,7 +61,7 @@ function class(strClassName, unionSuper)
         if nSuperType == 1 then
             -- C类继承
             cNewClass.__ctype = 1;
-            -- table类型继承则代表父类也是一个完整的BaseClass 可继承__create等函数
+            -- table类型继承则代表基类也是一个完整的BaseClass 可继承__create等函数
             -- C的继承就是将新增的类内的成员依次赋值给C创建的对象内
             for filedName, filedValue in pairs(cNewClass) do
                 cInheritClass[filedName] = filedValue;
@@ -97,7 +97,7 @@ function class(strClassName, unionSuper)
 
             -- 构建实例化函数
             function cNewClass.new(...)
-                -- Lua类实例化即为声明空表, 函数等的使用去父类查找
+                -- Lua类实例化即为声明空表存储变量, 函数等可复用的去类的表中查找
                 local instance = setmetatable({}, {__index = cNewClass});
                 instance.class = cNewClass;
                 instance:ctor(...);

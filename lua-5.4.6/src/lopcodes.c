@@ -16,6 +16,19 @@
 /* ORDER OP */
 
 LUAI_DDEF const lu_byte luaP_opmodes[NUM_OPCODES] = {
+
+// iABC模式 分为 C(9bit) B(9bit) A(8bit) opcode(6bit)
+// 其中opcode代表操作码 用于表示哪种指令
+// A域是被操作的目标 本质是寄存器位置 Lua虚拟机的寄存器实际上用的是栈上的空间，因此A域的值指代的就是栈上的某个位置
+// B域和C域用于存放参数 具体存放哪种数据由指令决定, 比如，操作对象如果是字符串，字符串本身的内容是没法编入这么短的域中的；因此，需要将不同的信息存放到不同的位置，再将它们的索引信息找出编入指令中
+
+// iABx模式 Bx(18bit) A(8it) opcode(6bit)
+// Bx域的值为无符号的
+
+// iAsBx sBx(18bit) A(8bit) opcode(6bit)
+// 与iABx模式基本相同 sBx域的值有符号
+// 采用iAsBx模式的指令一般和跳转有关系
+
 /*       MM OT IT T  A  mode		   opcode  */
   opmode(0, 0, 0, 0, 1, iABC)		/* OP_MOVE */
  ,opmode(0, 0, 0, 0, 1, iAsBx)		/* OP_LOADI */
