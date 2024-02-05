@@ -1,20 +1,14 @@
 ﻿#include "LuaAPITest.h"
 
-// luaL_dofile(L, "../luaScripts/luascoket/ltn12.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/mime.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/ftp.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/headers.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/http.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/mbox.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/smtp.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/tp.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/url.lua");
-// luaL_dofile(L, "../luaScripts/luascoket/socket.lua");
 
 luaL_Reg LuaAPITest::luax_exts[] = {
 	{"socket.core", luaopen_socket_core},
 	{"mime.core", luaopen_mime_core},
 	{ NULL, NULL }
+};
+
+std::vector<std::string> LuaAPITest::vecPath = {
+	"../luaScripts/?.lua"
 };
 
 luaL_Reg LuaAPITest::luasocket_scripts[] = {
@@ -108,9 +102,26 @@ void LuaAPITest::TestClass()
 {
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
-	luaopen_socket_core(L);
+
+	// 该接口new了一个table在栈上未移除，不清楚作用
+	// 解释：该接口可作为模块被加载，返回对应的table，并非初始化函数，此处无需调用
+	// luaopen_socket_core(L);
+
+	lua_getglobal(L, "package");
+	lua_getfield(L, -1, "path");
+	// stack: package_tab path_str
+	std::string strSearchPath = lua_tostring(L, -1);
+	for (std::string& strPath : vecPath)
+	{
+		strSearchPath += ";" + strPath;
+	}
+	lua_pushstring(L, strSearchPath.c_str());
+	// stack: package_tab path_str newpath_str
+	lua_setfield(L, -3, "path");
+	lua_pop(L, 2);	// pop 
 
 	LuaAPITest::RegisterLuasocket(L);
+	LuaAPITest::RegisterLuaPanda(L);
 
 	// 以下内容均有报错 暂无法获取绝对路径
 	//std::filesystem::path strPath = std::filesystem::current_path();	// C++17新功能 获取当前绝对路径
@@ -148,6 +159,7 @@ void LuaAPITest::TestClass()
 		return;
 	}
 
+	std::cout << "Stack num: " << lua_gettop(L) << std::endl;
 	int nInitResult = luaL_dofile(L, "../luaScripts/init.lua");
 	if (nInitResult != LUA_OK)
 	{
@@ -156,10 +168,34 @@ void LuaAPITest::TestClass()
 		lua_close(L);
 		return;
 	}
+	std::cout << "Stack num: " << lua_gettop(L) << std::endl;
 
-	//while (1)
+	int nMainResult = luaL_dofile(L, "../luaScripts/main.lua");
+	if (nMainResult != LUA_OK)
+	{
+		std::cout << "Error: " << std::endl;
+		std::cout << lua_tostring(L, -1) << std::endl;
+		lua_close(L);
+		return;
+	}
+
+	std::cout << "Stack num: " << lua_gettop(L) << std::endl;
+	// lua_remove(L, 1);
+	// stack: main_tab update_func 1_int
+	//double dTime = clock_t();
+	//std::cout << dTime << std::endl;
+	//while (true)
 	//{
-
+	//	lua_getfield(L, -1, "update");
+	//	lua_pushvalue(L, 1);
+	//	lua_pushstring(L, std::to_string(GetTickCount64() - dTime).c_str());
+	//	dTime = GetTickCount64();
+	//	int nUpdateResult = lua_pcall(L, 2, 0, 0);
+	//	if (nUpdateResult != LUA_OK)
+	//	{
+	//		std::cout << "Error: " << lua_tostring(L, -1) << std::endl;
+	//		lua_pop(L, -1);
+	//	}
 	//}
 
 	lua_close(L);
@@ -253,5 +289,44 @@ void LuaAPITest::RegisterLuasocket(lua_State* L)
 	// 弹出 package 和 preload
 	lua_pop(L, 2);
 }
+
+void LuaAPITest::RegisterLuaPanda(lua_State* L)
+{
+	int nResult = luaL_loadfile(L, "../luaScripts/LuaPanda.lua");
+	if (nResult != LUA_OK)
+	{
+		std::cout << "Error: Load file error!!!" << std::endl;
+		std::cout << lua_tostring(L, -1) << std::endl;
+		return;
+	}
+	int nCallResult = lua_pcall(L, 0, LUA_MULTRET, 0);
+	if (nCallResult != LUA_OK)
+	{
+		std::cout << "Error: Call file error!!!" << std::endl;
+		std::cout << lua_tostring(L, -1) << std::endl;
+	}
+
+	int nFieldType = lua_getfield(L, -1, "start");
+	if (nFieldType == LUA_TNIL) std::cout << "Error: Get Field nil" << std::endl;
+
+	// stack: LuaPanda_tab; start_func
+	lua_pushstring(L, "127.0.0.1");
+	lua_pushnumber(L, 8850);
+	// stack: LuaPanda_tab; start_func; ip_str; port_num
+	int nStartResult = lua_pcall(L, 2, LUA_MULTRET, 0);
+	if (nStartResult != LUA_OK)
+	{
+		std::cout << "Error: LuaPanda start failed!!!" << std::endl;
+		std::cout << lua_tostring(L, -1) << std::endl;
+		lua_pop(L, 1);
+	}
+
+	// stack: LuaPanda_tab
+	lua_setglobal(L, "LuaPanda");
+	//lua_pop(L, 1);
+
+	int n = 0;
+}
+
 
 

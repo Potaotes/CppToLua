@@ -1,5 +1,6 @@
 
-package.path = package.path .. ";" .. "../luaScripts/?.lua"
+-- 在C中默认添加该路径
+-- package.path = package.path .. ";" .. "../luaScripts/?.lua"
 
 -- C中添加了preload字段 此处无需添加C索引路径
 -- C链接器中添加了socket和mime的动态库
@@ -7,15 +8,16 @@ package.path = package.path .. ";" .. "../luaScripts/?.lua"
 -- package.cpath = package.cpath .. ";" .. "../socket/?.dll"
 -- package.cpath = package.cpath .. ";" .. "../mine/?.dll"
 -- package.cpath = package.cpath .. ";" .. "../?.dll"
-package.path = package.path .. ";" .. "../?.lua"
+-- package.path = package.path .. ";" .. "../?.lua"
 
 
 local LuaPanda = require("LuaPanda")
-LuaPanda.start("127.0.0.1", 8822)
+LuaPanda.start("127.0.0.1", 8850)
 
 require("util")
 
 -- dump(package.preload, "Preload")
+-- LuaPanda.start("127.0.0.1", 8850)
 
 local main = require("main")
 

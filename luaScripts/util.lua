@@ -1,9 +1,13 @@
 
 
+---拆分字符串
+---@param input string 待拆分字符串
+---@param delimiter string 分隔符
+---@return string[] #拆分后数组
 function string.split(input, delimiter)
     input = tostring(input)
     delimiter = tostring(delimiter)
-    if (delimiter=='') then return false end
+    if delimiter == "" then return {} end
     local pos,arr = 0, {}
     -- for each divider found
     for st,sp in function() return string.find(input, delimiter, pos, true) end do
@@ -14,11 +18,17 @@ function string.split(input, delimiter)
     return arr
 end
 
+---@param input string
+---@return string
+---@return integer
 function string.trim(input)
     input = string.gsub(input, "^[ \t\n\r]+", "")
     return string.gsub(input, "[ \t\n\r]+$", "")
 end
 
+---@param value table
+---@param desciption string?
+---@param nesting integer?
 function dump(value, desciption, nesting)
     if type(nesting) ~= "number" then nesting = 3 end
 

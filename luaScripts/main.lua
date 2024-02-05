@@ -16,4 +16,8 @@ function main:main()
 
 end
 
+function main:update(dt)
+    print("Lua print: " .. dt)
+end
+
 return main

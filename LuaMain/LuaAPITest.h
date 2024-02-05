@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <locale>
 #include <Windows.h>
+#include <time.h>
 
 extern "C"
 {
@@ -59,9 +60,16 @@ private:
 	/// <param name="L">Lua虚拟机实例</param>
 	static void RegisterLuasocket(lua_State* L);
 
+	/// <summary>
+	/// 注册调试用脚本
+	/// </summary>
+	/// <param name="L"></param>
+	static void RegisterLuaPanda(lua_State* L);
+
 private:
 	static luaL_Reg luax_exts[];
 	static luaL_Reg luasocket_scripts[];
+	static std::vector<std::string> vecPath;
 
 };
 
